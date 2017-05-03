@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <title>登录</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min93e3.css"/>
+    <link rel="stylesheet" href="css/animate.min.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+</head>
+<body>
+    <div class="loginBox">
+        <div class="loginLogo"></div>
+        <div class="loginWrap">
+            <div class="loginBanImg"><img src="images/loginbanImg.png" alt=""/></div>
+            <div class="loginEnter">
+                <div class="loginEnHead">
+                    <h2 class="loginQuick"></h2>
+                    <h2 class="loginStatic"></h2>
+                    <div class="loginTip"><b>用户登录</b></div>
+                </div>
+                <div class="loginMask">
+                    <dl class="LoadLabel">
+                        <dt><a href="javascript:void(0);">立即注册</a></dt>
+                        <dd><input type="text" placeholder="请输入用户名"/></dd>
+                        <dd><input type="text" placeholder="请输入密码"/></dd>
+                    </dl>
+                </div>
+                <div class="loginSubmit">
+                    <dl class="SubmitLabel">
+                        <dt><a href="javascript:void(0);">忘记密码？</a></dt>
+                        <dd><button>登 录</button></dd>
+                    </dl>
+                </div>
+                <!-- -----------切换扫码登录--------------->
+                <div class="loginSaoma">
+                    <dl class="SmLoad">
+                        <dt>扫码登录</dt>
+                        <dd class="LoginSmImg">
+                            <div>
+                                <img src="images/twoma.png" alt=""/>
+                            </div>
+                        </dd>
+                        <dd class="LoginSmdesc">
+                            <!--<i class="fa fa-search"></i>-->
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" style="width: 34px; height: 34px;vertical-align: middle;fill: currentColor;overflow: hidden;margin-top: -18px;" viewBox="0 0 1024 1024" version="1.1" p-id="2447"><path d="M864 48l-697.6 0c-48 0-83.2 41.6-83.2 89.6l0 208c0 12.8 9.6 25.6 22.4 25.6s22.4-9.6 22.4-25.6l0-208c0-22.4 16-41.6 38.4-41.6l697.6 0c22.4 0 38.4 19.2 38.4 41.6l0 208c0 12.8 9.6 25.6 22.4 25.6s22.4-9.6 22.4-25.6l0-208C947.2 89.6 908.8 48 864 48z" p-id="2448"></path><path d="M924.8 681.6c-12.8 0-22.4 9.6-22.4 25.6l0 179.2c0 22.4-16 41.6-38.4 41.6l-697.6 0c-22.4 0-38.4-19.2-38.4-41.6L128 704c0-12.8-9.6-25.6-22.4-25.6s-22.4 9.6-22.4 25.6l0 179.2c0 51.2 38.4 89.6 83.2 89.6l697.6 0c48 0 83.2-41.6 83.2-89.6L947.2 704C947.2 691.2 937.6 681.6 924.8 681.6z" p-id="2449"></path><path d="M921.6 544c12.8 0 22.4-9.6 22.4-22.4 0-12.8-9.6-22.4-22.4-22.4l-819.2 0c-12.8 0-22.4 9.6-22.4 22.4 0 12.8 9.6 22.4 22.4 22.4L921.6 544z" p-id="2450"></path></svg>
+                            <p>打开<a href="javascript:;">手机云客户</a>，扫一扫登录 <br/><b>更安全的登录方式</b></p>
+                        </dd>
+                    </dl>
+                    <div class="LoginAgreement">
+                        <input type="checkbox" checked/> 我同意并已阅读 <a href="javascript:;">《***服务协议》</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loginFoot">
+            <p class="color06f">中国石化云客户关系管理系统</p>
+            <p>CopyRight © 2016 中国石化股份有限公司  版权所有    地址：北京市朝阳区（邮编：100028 )</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        //----------------------------------------------
+            var floatImg = $(".loginBanImg");
+            $(".loginWrap").on("mousemove",function(e) {
+                var ax = ($(window).innerWidth()/2- e.pageX)/70;
+                var ay = -($(window).innerHeight()/2- e.pageY)/40;
+                floatImg.attr("style", "transform: rotateY("+ax+"deg) rotateX("+ay+"deg);" +
+                        "-webkit-transform: rotateY("+ax+"deg) rotateX("+ay+"deg);" +
+                        "-moz-transform: rotateY("+ax+"deg) rotateX("+ay+"deg)");
+            });
+
+        //----------------------------------------------
+            $(".loginQuick").click(function(){
+                $(".loginMask").hide(200);
+                $(".loginSubmit").hide(200);
+                $(".loginSaoma").show(200);
+                $(this).hide(200);
+                $(".loginStatic").show(200);
+            });
+            $(".loginStatic").click(function(){
+                $(".loginMask").show(200);
+                $(".loginSubmit").show(200);
+                $(".loginSaoma").hide(200);
+                $(this).hide(200);
+                $(".loginQuick").show(200);
+            });
+        });
+
+
+    </script>
+</body>
+</html>

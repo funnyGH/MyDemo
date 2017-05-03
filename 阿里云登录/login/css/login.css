@@ -1,0 +1,274 @@
+/*清除全局样式*/
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img ,input,a,table{ margin:0; padding:0; outline:none;}
+fieldset, img ,table{ border:none; }
+address, caption, cite, code, dfn, th, var{ font-style:normal; font-weight:normal; }
+ul, ol ,li,table{ list-style:none; }
+body { color:#333;font:12px/20px Arial,'Microsoft Yahei',"Arial Narrow",HELVETICA; background:#fff;}
+img{display:block;width:100%;}
+/*====================*/
+body{
+    width:100%;
+    overflow-x: hidden;
+    position: relative;
+}
+.loginBox{
+    width:100%;
+    height:1080px;
+}
+.loginLogo{
+    width:100%;
+    height:70px;
+    background: url(../images/logo.png) no-repeat 8px 8px;
+}
+@media screen and (min-width: 1920px){
+    .loginLogo{
+        width:1920px;
+        margin:0 auto;
+    }
+}
+/*-----------banner部分-------------------*/
+.loginWrap{
+    width:1920px;
+    height:732px;
+    position:absolute;
+    left:50%;
+    margin-left:-960px;
+    background: url(../images/loginBanner.png) no-repeat;
+    background-size: contain;
+}
+.loginBanImg{
+    width:1000px;
+    height:732px;
+    float:left;
+    pointer-events: none;
+    transform: translateZ(0px);
+    transform-style: preserve-3d;
+    display: flex;
+    transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out; /* Firefox 4 */
+    -webkit-transition: all 0.5s ease-out; /* Safari 和 Chrome */
+    -o-transition: all 0.5s ease-out;
+}
+.loginBanImg img{
+    width:100%;
+    height:100%;
+    transform: translateZ(80px);
+}
+/*-----------------账号密码登陆----------------*/
+.loginEnter{
+    width:347px;
+    height:384px;
+    background: #fff;
+    float:left;
+    margin:145px 0px 0px 7%;
+}
+.loginEnHead{
+    width:100%;
+    height:68px;
+    position: relative;
+}
+.loginEnHead h2{
+    display: block;
+    cursor: pointer;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.loginEnHead .loginQuick{
+    background: url(../images/twoWeiMa.png) no-repeat;
+}
+.loginEnHead .loginStatic{
+    background: url(../images/twoPc.png) no-repeat;
+    display: none;
+}
+.loginTip{
+    height:22px;
+    padding:22px 0px;
+    font-size:22px;
+    position: absolute;
+    top: 0;
+    left:23px;
+}
+.loginMask{
+    width:100%;
+    height:180px;
+    padding:0px 23px;
+}
+.LoadLabel dt{
+    width:100%;
+    height:35px;
+    line-height: 35px;
+    text-align: right;
+}
+.LoadLabel dt a{
+    font-size: 15px;
+    color:red;
+    text-decoration: none;
+    font-weight: bold;
+}
+.LoadLabel dd{
+    width:100%;
+    height:39px;
+    margin-bottom:13px;
+}
+.LoadLabel dd input{
+    display: block;
+    width:100%;
+    height:100%;
+    text-indent: 45px;
+    border:1px solid #e5e5e5;
+    font-size:15px;
+    background:#e5f4fc url(../images/loginMarkTu.png) no-repeat 9px 9px;
+}
+.LoadLabel dd:nth-child(2) input{
+    background-position: 9px -43px;
+}
+.loginSubmit{
+    width:100%;
+    padding:0px 23px;
+}
+.SubmitLabel dt a{
+    font-size: 15px;
+    text-decoration: none;
+}
+.SubmitLabel dd{
+    width:100%;
+    height: 39px;
+    margin-top:17px;
+}
+.SubmitLabel dd button{
+    width:100%;
+    height:100%;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+    color:#fff;
+    border:none;
+    background: #037acb;
+    cursor: pointer;
+}
+/*---隐藏的二维扫描登录----*/
+.loginSaoma{
+    width:100%;
+    padding:0px 23px;
+    display: none;
+}
+.SmLoad{
+    width:100%;
+}
+.SmLoad dt{
+    width:100%;
+    text-align: center;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    overflow: hidden;
+}
+.LoginSmImg{
+    width:100%;
+    display: block;
+    padding-bottom: 20px;
+    min-height: 130px;
+}
+.LoginSmImg div{
+    width: 115px;
+    height: 115px;
+    margin: 0 auto;
+    padding: 7px;
+    box-shadow: 0 0 8px #DDD;
+}
+.LoginSmImg div img{
+    display: block;
+}
+.LoginSmdesc{
+    text-align: center;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+.LoginSmdesc i{
+    display: inline-block;
+    color: #00a2ca;
+    font-size: 34px;
+    line-height: 36px;
+    margin-right: 10px;
+}
+.LoginSmdesc p{
+     line-height: 16px;
+     font-size: 12px;
+     text-align: left;
+     display: inline-block;
+}
+.LoginAgreement{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.LoginAgreement input{
+    height: 13px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------登录页底部文字-*/
+.loginFoot{
+    width:100%;
+    height:278px;
+    position:absolute;
+    bottom:0px;
+}
+.loginFoot p{
+    text-align: center;
+    font-size:14px;
+}
+.loginFoot p.color06f{
+    margin-top:47px;
+    color:#0066ff;
+}
+.loginFoot p:nth-child(2){
+    height:58px;
+    line-height: 58px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

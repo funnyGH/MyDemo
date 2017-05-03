@@ -1,0 +1,631 @@
+<%@page import="com.pcitc.common.util.PropertiesUtils"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<% request.setAttribute("webPath", request.getContextPath());%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>	
+<title>全文搜索-石化e贸网</title>	   
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta http-equiv="msthemecompatible" content="no">
+	
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/public.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/base.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/headandfoot.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/lbimg.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/sinopec.css">
+	<link rel="stylesheet" type="text/css" href="${webPath}/css/search.css">
+    <link rel="stylesheet" type="text/css" href="${webPath}/css/home.css">
+    <link rel="stylesheet" href="${webPath}/js/layer/skin/layer.css">
+    <link rel="stylesheet" type="text/css" href="${webPath}/css/search_result.css">
+    <style type="text/css">
+        .red_search {
+            color: red;
+        }
+        .disNone {
+	        display: none;
+        }
+        .sp-show {
+	        display: block;
+        }
+		.nav-product {
+		    background: #f2f2f2;
+		    text-indent: 18px;
+		    margin-bottom: 10px;
+		}
+		.nav-product a:hover{ color:#868686; cursor:default;}
+		.ser_title_name a{
+		    display: inline-block;
+		}
+		.ser_con .ser_con_Yl{
+		    padding: 24px 20px 0px 0px;
+	   	    width: calc(100% - 220px);
+	   	    font-size:13px;
+		}
+		    
+		
+	</style>
+</head>
+<body>
+	<template src="${webPath}/template/header.html"></template>
+	<template src="${webPath}/template/search.html"></template>
+	<input type="hidden" id='titleId' value="2"/>
+	<template src="${webPath}/template/menu.html"></template>
+	
+	<div class="main">
+		<input type="hidden" id="from" value="${from+1}"/>
+		<input type="hidden" id="sort" value="${sort}"/>
+		<input type="hidden" id="tabname" value="${tabname}"/>
+		<input type="hidden" id="value" value="${value}"/>
+		<div class="div-nav nav-product">
+			<a class="nav-a-sub" style="font-size: 16px;">搜索结果</a>
+			<a class="nav-a-sub" style="font-size: 16px;">&gt;</a>
+			 <a class="nav-a-sub" style="font-size: 16px;">${value}</a>
+        </div>
+		 <!-- 搜索结果-内容 -->
+        <div class="search-result" id="productInfo">
+          <!-- tab-nav -->
+          <ul class="ser_tab">
+            <li class="sp_showLi"><a class="active hover" href="#"  >产品简介</a></li>
+            <li class="sp_showLi"><a href="#"  >现货商城</a></li>
+            <li class="sp_showLi"><a href="#" >竞价交易</a></li>
+          </ul>
+          
+
+          <div class="ser_con">
+            <!-- 产品简介---------------------------------------开始 -->
+            <div id="tab_cpjj" class="sp_conChild disNone sp-show" >
+              <ul class="ser_specific_con">
+              <%PropertiesUtils urlConfig = new PropertiesUtils("conf/oss.properties"); %>
+              <c:forEach var="jj" items="${jjList}">
+                  <li>
+	                  <div class="ser_img"><img src="<%=urlConfig.getProperty("endpoint_internal")+"/"+urlConfig.getProperty("bucketName")+"/"+urlConfig.getProperty("infoFolderName")%>/${jj.reserve01}" onerror="javascript:this.src='/chemmall/images/default.jpg';"></div>
+		                  <div class="ser_con_font ser_con_Yl">
+		                      <p class="ser_title_name"><a href="javascript:goProductInfo('${jj.proIntroductionUrl}')"><span>${jj.proIntroductionName}</span></a></p>
+		                      <p class="ser_con_intr">${jj.proIntroductionDesc}</p>
+		                  </div>
+                  </li>
+              </c:forEach>  
+              </ul>
+              <!-- 搜索内容-分页 -->
+              <div class="search">
+	        	 <div class="right">
+	        		<span>
+	        			共
+	        		</span>
+	        		<span id="totle_recode">${jjtotal}</span>
+	        		<span>
+	        			个商品&nbsp;|&nbsp;
+	        		</span>
+	        		<span class="price" id="dq_page">${from+1}</span>
+	        		<span>
+	        			/
+	        		</span>
+	        		<span id="totle_page"></span>
+	        		<div class="btn-group">
+	        			<input type="button" class="page-btn-item page sbsprev" value="<" id="prev">        		
+	        			<input type="text" id="yema" style="width: 20px;border-right: solid 1px #ccc;float:left;text-align: center;" value="${from+1}">        		
+	        			<input type="button" class="page-btn-item last page" value=">" id="next">
+	        			<input type="button" style="border-left: solid 1px #ccc;" value="GO" id="go">
+	        		</div>
+	        	   </div>
+        		</div>	
+     		</div>
+               <!-- 搜索内容-分页 -->
+            <!-- 产品简介-------------------------------------------------------结束 -->
+            
+            
+            <!-- 现货商城--------------------------------------------------------开始 -->
+            <div id="tab_xhsc" class="sp_conChild disNone">
+              <!--排序-->
+             <div class="search">
+	        	<div class="btn-group">
+	        		<input type="button" name="name_desc" class="btn-item" value="名称">
+	        		<input type="button" name="price_desc" class="btn-item" value="价格">
+	        		<input type="button" name="kcl_desc" class="btn-item" value="库存量">
+	        		<input type="button" name="time_desc" class="btn-item last" value="上架时间">
+	        	</div>
+        		<div class="right">
+	        		<span>
+	        			共
+	        		</span>
+	        		<span id="totle_recode">${totalxh}</span>
+	        		<span>
+	        			个商品&nbsp;|&nbsp;
+	        		</span>
+	        		<span class="price" id="dq_page">${fromxh+1}</span>
+	        		<span>
+	        			/
+	        		</span>
+	        		<span id="totle_page1"></span>
+	        		<div class="btn-group">
+	        			<input type="button" class="page-btn-item page sbs-spot-prev" value="<" id="prev1">        		
+	        			<input type="text" id="yema1" style="width: 20px;border-right: solid 1px #ccc;float:left;text-align: center;" value="${fromxh+1}">        		
+	        			<input type="button" class="page-btn-item last page" value=">" id="next1">
+	        			<input type="button" style="border-left: solid 1px #ccc;" value="GO" id="go1">
+	        		</div>
+	        	</div>
+	        </div>
+              
+              <ul class="ser_specific_con">
+               <c:forEach var="xhlist" items="${xhList}">
+                <li>
+                  <div class="ser_img"><img src="${xhlist.imageUrl}" onerror="javascript:this.src='/chemmall/images/default.jpg';"></div>
+                  <div class="ser_con_font ser_font_pad">
+                    <div class="ser_font_top">
+                      <ul>
+                        <li>
+                          <h1><a href="javascript:showPage('${webPath}/spotMall/getSpotMall.do?spotaddedid=${xhlist.spotAddedId}')">${xhlist.productDesc}</a></h1>
+                          <p style="color:#027cff;">供应商：<span>${xhlist.saleOrgDesc}</span></p>
+                        </li>
+                        <li class="ser_font_price">${xhlist.addedPrice} ${xhlist.addedCurrency}</li>
+                      </ul>
+                    </div>
+                    
+                    <ul class="ser_font_bottom">
+                      <li><span>上架时间：${xhlist.addedTime}</span><span>下架时间：${xhlist.shelvesTime}</span><span>生产企业：${xhlist.manufacturerDesc}</span></li>
+                      <li><span>库存地点：${xhlist.stockDesc}</span><span>库存量：${xhlist.addedQuantity}${xhlist.unit == 'TO'?'吨':xhlist.unit}</span></li>
+                      <li class="serFontBotYu">备注：${xhlist.addedText}</li>
+                    </ul>
+                  </div>
+                </li>
+                   </c:forEach>
+              </ul>
+           
+              <!-- 搜索内容-分页 -->
+              <div class="search">
+	        	<div class="btn-group">
+	        		<input type="button" name="name_desc" class="btn-item" value="名称">
+	        		<input type="button" name="price_desc" class="btn-item" value="价格">
+	        		<input type="button" name="kcl_desc" class="btn-item" value="库存量">
+	        		<input type="button" name="time_desc" class="btn-item last" value="上架时间">
+	        	</div>
+	        	<div class="right">
+	        		<span>
+	        			共
+	        		</span>
+	        		<span id="totle_recode">${totalxh}</span>
+	        		<span>
+	        			个商品&nbsp;|&nbsp;
+	        		</span>
+	        		<span class="price" id="dq_page">${fromxh+1}</span>
+	        		<span>
+	        			/
+	        		</span>
+	        		<span id="totle_page2"></span>
+	        		<div class="btn-group">
+	        			<input type="button" class="page-btn-item page sbs-spot-prev" value="<" id="prev2">        		
+	        			<input type="text" id="yema2" style="width: 20px;border-right: solid 1px #ccc;float:left;text-align: center;" value="${fromxh+1}">        		
+	        			<input type="button" class="page-btn-item last page" value=">" id="next2">
+	        			<input type="button" style="border-left: solid 1px #ccc;" value="GO" id="go2">
+	        		</div>
+	        	  </div>
+        		</div>
+              <!-- 搜索内容-分页 -->
+            </div>
+            <!-- 现货商城----------------------------------------------------------------结束 -->
+            
+            
+            <!-- 竞价交易-----------------------------------------------------------------开始 -->
+            <div id="tab_jjjy" class="sp_conChild disNone">
+              <!--排序-->
+              <div class="search">
+	        	<div class="btn-group">
+	        		<input type="button" name="name_desc@" class="btn-item" value="名称">
+	        		<input type="button" name="price_desc@" class="btn-item" value="价格">
+	        		<input type="button" name="kcl_desc@" class="btn-item" value="库存量">
+	        		<input type="button" name="time_desc@" class="btn-item last" value="上架时间">
+	        	</div>
+	        	<div class="right">
+	        		<span>
+	        			共
+	        		</span>
+	        		<span id="totle_recode">${totaljingjia}</span>
+	        		<span>
+	        			个商品&nbsp;|&nbsp;
+	        		</span>
+	        		<span class="price" id="dq_page">${fromjingjia+1}</span>
+	        		<span>
+	        			/
+	        		</span>
+	        		<span id="totle_page3"></span>
+	        		<div class="btn-group">
+	        			<input type="button" class="page-btn-item page sbs-bid-prev" value="<" id="prev3">        		
+	        			<input type="text" id="yema3" style="width: 20px;border-right: solid 1px #ccc;float:left;text-align: center;" value="${fromjingjia+1}">        		
+	        			<input type="button" class="page-btn-item last page" value=">" id="next3">
+	        			<input type="button" style="border-left: solid 1px #ccc;" value="GO" id="go3">
+	        		</div>
+	        	</div>
+	          </div>
+              <ul class="ser_specific_con">
+                 <c:forEach var="jingjiaList" items="${jingjiaList}">
+                <li>
+                  <div class="ser_img"><img src="${jingjiaList.imageUrl}" onerror="javascript:this.src='/chemmall/images/default.jpg';"></div>
+                  <div class="ser_con_font ser_font_pad">
+                    <div class="ser_font_top">
+                      <ul>
+                        <li>
+                          <h1><a href="javascript:getjjMall('${jingjiaList.bidDocId}');">${jingjiaList.productDesc}</a></h1>
+                          <p style="color:#027cff;">供应商：<span>${jingjiaList.salesOrgDesc}</span></p>
+                        </li>
+                        <li class="ser_font_price">${jingjiaList.basePrice} ${jingjiaList.erpBasePriceDesc}</li>
+                      </ul>
+                    </div>
+                    
+                    <ul class="ser_font_bottom">
+                      <li><span>上架时间：${jingjiaList.addedTime}</span><span>开标时间：${jingjiaList.bidDocOpenDate}</span><span>生产企业：${jingjiaList.manufacturerDesc}</span></li>
+                      <li><span>库存地点：${jingjiaList.stockDesc}</span><span>库存量：${jingjiaList.amount}${jingjiaList.amountUnitCode}</span></li>
+                      <li class="serFontBotYu">备注：${jingjiaList.textValue}</li>
+                    </ul>
+                  </div>
+                </li>
+                   </c:forEach>
+              </ul>
+			  <div class="search">
+	        	<div class="btn-group">
+	        		<input type="button" name="name_desc@" class="btn-item" value="名称">
+	        		<input type="button" name="price_desc@" class="btn-item" value="价格">
+	        		<input type="button" name="kcl_desc@" class="btn-item" value="库存量">
+	        		<input type="button" name="time_desc@" class="btn-item last" value="上架时间">
+	        	</div>
+	        	<div class="right">
+	        		<span>
+	        			共
+	        		</span>
+	        		<span id="totle_recode">${totaljingjia}</span>
+	        		<span>
+	        			个商品&nbsp;|&nbsp;
+	        		</span>
+	        		<span class="price" id="dq_page">${fromjingjia+1}</span>
+	        		<span>
+	        			/
+	        		</span>
+	        		<span id="totle_page4"></span>
+	        		<div class="btn-group">
+	        			<input type="button" class="page-btn-item page sbs-bid-prev" value="<" id="prev4">        		
+	        			<input type="text" id="yema4" style="width: 20px;border-right: solid 1px #ccc;float:left;text-align: center;" value="${fromjingjia+1}">        		
+	        			<input type="button" class="page-btn-item last page" value=">" id="next4">
+	        			<input type="button" style="border-left: solid 1px #ccc;" value="GO" id="go4">
+	        		</div>
+	        	</div>
+	        </div>              
+              <!-- 搜索内容-分页 -->
+            </div>
+            <!-- 竞价交易--------------------------------------------------------------------结束 -->
+
+            </div>
+          </div>
+        </div>
+		<!-- 搜索结果-内容 --> 
+	<div class="clear"></div>
+    <div class="footer">
+        <div class="bottom-space"></div>
+        <template src="${webPath}/template/statement.html"></template>
+    </div>
+    
+    
+	<script type="text/javascript" src="${webPath}/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="${webPath}/js/template.js"></script>
+	<script type="text/javascript" src="${webPath}/js/unslider.min.js"></script>
+	<script type="text/javascript" src="${webPath}/js/layer-v1.9.0/layer/layer.js"></script>
+    <script type="text/javascript" src="${webPath}/js/image_config.js"></script>
+    <script type="text/javascript" src="/chemmall/js/common/variable.js"></script>
+	<script type="text/javascript">
+	$("body").css("width", $(window).width());
+	
+	function showPage(url){
+		window.location.href=url;
+	}
+	function goProductInfo(url){
+		window.location.href=ipDomain+"/chemmall/cpjj/"+url;
+	}
+	$(document).ready(function(){
+		$(".ser_con_Yl").each(function(){
+			$(this).children("h2").hide().siblings("h3").hide();
+			//var h = $(".ser_con_Yl").children("h3").eq(0);
+			var p = $(this).children("p").eq(2);
+			var pText = p.html();
+			p.nextAll().hide();
+			if(pText){
+				if(pText.length > 100){
+					var str = pText.substr(0,100) + " ..."; 
+					p.html("").html(str); 
+				}else{
+					console.log("hello")
+				}
+			} 
+			p.css({
+				"font-size":"12px",
+				"line-height":"18px"
+			});
+		});
+		
+		
+		var count1 = "${totaljj}";//产品简介总数量
+		var count2 = "${totalxh}";//现货总数量
+		var count3= "${totaljingjia}";//竞价总数量
+		var yushu1 = parseInt(count1)%10;
+		var zhengshu1 = parseInt(count1/10);
+		var yushu2 = parseInt(count2)%10;
+		var zhengshu2 = parseInt(count2/10);
+		var yushu3 = parseInt(count3)%10;
+		var zhengshu3 = parseInt(count3/10);
+		var name = "${name}";
+		var pagers1;
+		var pagers2;
+		var pagers3;
+		if(yushu1!=0){
+			pagers1 = zhengshu1+1;
+		}else{
+			pagers1 = zhengshu1;
+		}
+		if(yushu2!=0){
+			pagers2 = zhengshu2+1;
+		}else{
+			pagers2 = zhengshu2;
+		}
+		if(yushu3!=0){
+			pagers3 = zhengshu3+1;
+		}else{
+			pagers3 = zhengshu3;
+		}
+		$("#totle_page").html(pagers1);
+		$("#totle_page1").html(pagers2);
+		$("#totle_page2").html(pagers2);
+		$("#totle_page3").html(pagers3);
+		$("#totle_page4").html(pagers3);
+		if(name==null||name==''){
+			$("input[name='time_desc']").addClass("selected");	
+			$("input[name='time_desc@']").addClass("selected");	
+		}else{
+			$("input[name='"+name+"']").addClass("selected");
+			if(name.indexOf("@")>0){
+				$("input[name='time_desc']").addClass("selected");	
+			}else{
+				$("input[name='time_desc@']").addClass("selected");	
+			}
+		}
+		$("#prev").bind("click", function(){
+			if(parseInt($("#yema").val())>1){
+				var from = parseInt($("#yema").val())-2;
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&value="+encodeURI(encodeURI(value));
+			}
+		});
+		$("#prev1").bind("click", function(){
+			if(parseInt($("#yema1").val())>1){
+				var from = parseInt($("#yema1").val())-2;
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value)); 
+			
+			}
+		});
+		$("#prev2").bind("click", function(){
+			if(parseInt($("#yema2").val())>1){
+				var from = parseInt($("#yema2").val())-2;
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value));  
+			
+			}
+		});
+		$("#prev3").bind("click", function(){
+			if(parseInt($("#yema3").val())>1){
+				var from = parseInt($("#yema3").val())-2;
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));   
+			
+			}
+		});
+		$("#prev4").bind("click", function(){
+			if(parseInt($("#yema4").val())>1){
+				var from = parseInt($("#yema4").val())-2;
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));    
+			
+			}
+		});
+			
+		$("#next").bind("click", function(){
+			if(parseInt($("#yema").val())<pagers1){
+				var from = parseInt($("#yema").val());
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&value="+encodeURI(encodeURI(value));
+			 
+			}
+		});
+		$("#next1").bind("click", function(){
+			if(parseInt($("#yema1").val())<pagers2){
+				var from = parseInt($("#yema1").val());
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value));  
+			 
+			}
+		});
+		$("#next2").bind("click", function(){
+			if(parseInt($("#yema2").val())<pagers2){
+				var from = parseInt($("#yema2").val());
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value));  
+			 
+			}
+		});
+		$("#next3").bind("click", function(){
+			if(parseInt($("#yema3").val())<pagers3){
+				var from = parseInt($("#yema3").val());
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));   
+			 
+			}
+		});
+		$("#next4").bind("click", function(){
+			if(parseInt($("#yema4").val())<pagers3){
+				var from = parseInt($("#yema4").val());
+				var value = $("#value").val();
+				window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));   
+			 
+			}
+		});
+		$("#go").bind("click", function(){
+			var from = parseInt($("#yema").val())-1;
+			var value = $("#value").val();
+			if(from>pagers1){
+				from=pagers1;
+			}
+			window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&value="+encodeURI(encodeURI(value));
+		 
+		});
+		
+		$("#go1").bind("click", function(){
+			var from = parseInt($("#yema1").val())-1;
+			var value = $("#value").val();
+			if(from>pagers2){
+				from=pagers2;
+			}
+			window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value));  
+		});
+		$("#go2").bind("click", function(){
+			var from = parseInt($("#yema2").val())-1;
+			var value = $("#value").val();
+			if(from>pagers2){
+				from=pagers2;
+			}
+			window.location.href="${webPath}/spotMall/searchBySolr.do?fromxh="+from+"&tabname=xhsc"+"&value="+encodeURI(encodeURI(value));  
+		});
+		$("#go3").bind("click", function(){
+			var from = parseInt($("#yema3").val())-1;
+			var value = $("#value").val();
+			if(from>pagers3){
+				from=pagers3;
+			}
+			window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));   
+		});
+		$("#go4").bind("click", function(){
+			var from = parseInt($("#yema4").val())-1;
+			var value = $("#value").val();
+			if(from>pagers3){
+				from=pagers3;
+			}
+			window.location.href="${webPath}/spotMall/searchBySolr.do?fromjingjia="+from+"&tabname=jjjy"+"&value="+encodeURI(encodeURI(value));   
+		});
+	});
+	
+	$(function(){
+		 var tabname=$("#tabname").val();
+		 if(tabname=="jjjy"){
+			 $(".sp_showLi").eq(2).children("a").addClass("active").parent().siblings("li").children("a").removeClass("active");
+		        $(".sp_conChild").eq(2).addClass("sp-show").siblings("div").removeClass("sp-show");	 
+		 }else if(tabname=="xhsc"){
+			 $(".sp_showLi").eq(1).children("a").addClass("active").parent().siblings("li").children("a").removeClass("active");
+		        $(".sp_conChild").eq(1).addClass("sp-show").siblings("div").removeClass("sp-show");	 
+		 }else{
+			 $(".sp_showLi").eq(0).children("a").addClass("active").parent().siblings("li").children("a").removeClass("active");
+		        $(".sp_conChild").eq(0).addClass("sp-show").siblings("div").removeClass("sp-show");	  
+		 }
+		$("body").on("click",".search .btn-group .btn-item",function(){
+			var value = $("#value").val();
+			$(this).siblings().removeClass("selected");
+			$(this).addClass("selected");
+			var sort = $(this).val();
+			var name=this.name
+			var tabname;
+			if(name.indexOf("@")>0){
+				tabname="jjjy";
+				var from = parseInt($("#from").val())-1;
+			}else{
+				tabname="xhsc";
+			}
+			var from = parseInt($("#from").val())-1;
+			var  productDesc="${productDesc}";
+			var  addedPrice="${addedPrice}";
+			var  salableQuantity="${salableQuantity}";
+			var  addedTime="${addedTime}";
+			if(productDesc==null||productDesc==''){
+				productDesc=1;
+			}else if(productDesc==1){
+				productDesc=0;
+			}else if(productDesc==0){
+				productDesc=1;
+			}
+			
+			if(addedPrice==null||addedPrice==''){
+				addedPrice=1;
+			}else if(addedPrice==1){
+				addedPrice=0;
+			}else if(addedPrice==0){
+				addedPrice=1;
+			}
+			
+			if(salableQuantity==null||salableQuantity==''){
+				salableQuantity=1;
+			}else if(salableQuantity==1){
+				salableQuantity=0;
+			}else if(salableQuantity==0){
+				salableQuantity=1;
+			}
+			
+			if(addedTime==null||addedTime==''){
+				addedTime=1;
+			}else if(addedTime==1){
+				addedTime=0;
+			}else if(addedTime==0){
+				addedTime=1;
+			}
+			if(sort == "名称"){
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&productDesc="+productDesc+"&sort=name_desc&name="+name+"&tabname="+tabname+"&value="+encodeURI(encodeURI(value));
+			}else if(sort == "价格"){
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&addedPrice="+addedPrice+"&sort=price_desc&name="+name+"&tabname="+tabname+"&value="+encodeURI(encodeURI(value));
+			}else if(sort == "库存量"){
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&salableQuantity="+salableQuantity+"&sort=kcl_desc&name="+name+"&tabname="+tabname+"&value="+encodeURI(encodeURI(value));
+			}else if(sort == "上架时间"){
+				window.location.href="${webPath}/spotMall/searchBySolr.do?from="+from+"&addedTime="+addedTime+"&sort=time_desc&name="+name+"&tabname="+tabname+"&value="+encodeURI(encodeURI(value));
+			}
+		});
+	});
+	function showcpjj(){
+		document.getElementById("tab_cpjj").style.display="";//显示
+		document.getElementById("tab_xhsc").style.display="none";//隐藏
+		document.getElementById("tab_jjjy").style.display="none";//隐藏
+		$("#cpjj").addClass("active hover");
+		$("#xhsc").removeClass("active hover");
+		$("#jjjy").removeClass("active hover");
+	}
+	function showxhsc(){
+		document.getElementById("tab_cpjj").style.display="none";//显示
+		document.getElementById("tab_xhsc").style.display="";//隐藏
+		document.getElementById("tab_jjjy").style.display="none";//隐藏
+		$("#cpjj").removeClass("active hover");
+		$("#xhsc").addClass("active hover");
+		$("#jjjy").removeClass("active hover");
+	}
+	function showjjjy(){
+		document.getElementById("tab_cpjj").style.display="none";//显示
+		document.getElementById("tab_xhsc").style.display="none";//隐藏
+		document.getElementById("tab_jjjy").style.display="";//隐藏
+		$("#cpjj").removeClass("active hover");
+		$("#xhsc").removeClass("active hover");
+		$("#jjjy").addClass("active hover");
+	}
+	function getjjMall(biddocnumber){
+		 window.location.href = "${webPath}/jingjia/getjjMall.do?biddocnumber="+biddocnumber;
+		 
+	 }
+	 /*============tab切换事件===============*/
+    $(".sp_showLi").click(function(){
+        var index = $(this).index();
+        $(this).children("a").addClass("active").parent().siblings("li").children("a").removeClass("active");
+        $(".sp_conChild").eq(index).addClass("sp-show").siblings("div.sp_conChild").removeClass("sp-show");
+    })
+    
+    
+	
+</script>
+	
+</body>
+</html>
