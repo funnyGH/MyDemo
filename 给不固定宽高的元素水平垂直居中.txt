@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml">  
+ <head>  
+  <title>  </title>  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<style type="text/css">  
+ body { font-size:12px;font-family:tahoma;}  
+ #wrap {  
+    background-color:#FFCCFF;  
+    width:760px;   
+    height:400px;  
+    display:table; /*垂直居中因素*/  
+    _position:relative; /*垂直居中因素*/  
+ }  
+ #subwrap {  
+    text-align:center; /*水平居中因素*/  
+    vertical-align:middle; /*垂直居中因素*/  
+    display:table-cell; /*垂直居中因素*/  
+    _position:absolute; /*垂直居中因素*/  
+    _top:50%; /*垂直居中因素*/  
+ }  
+ #content {  
+    width:200px;   
+    background:#d0d0d0;    
+    margin-left:auto;  /*水平居中因素*/  
+    margin-right:auto; /*水平居中因素*/  
+    _position:relative; /*垂直居中因素*/  
+    _top:-50%; /*垂直居中因素*/  
+ }  
+</style>  
+</head>  
+<body>  
+    <div id="wrap">  
+        <div id="subwrap">  
+            <div id="content">  
+                ss<br/>  
+                ss<br/>  
+                ss<br/>  
+                ss<br/>  
+            </div>  
+        </div>  
+    </div>  
+</body>  
+</html>  
